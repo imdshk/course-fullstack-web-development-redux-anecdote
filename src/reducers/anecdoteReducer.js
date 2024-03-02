@@ -44,13 +44,15 @@ const anecdoteReducer = (state = initialState, action) => {
         return anecdote.id === action.payload.id
       })
       const updatedAnecdote = { ...anecdoteToUpdate[0], "votes": anecdoteToUpdate[0].votes + 1 }
-      return state.map(anecdote => {
+      const updatedAnecdotes = state.map(anecdote => {
         return (
           anecdote.id === updatedAnecdote.id 
           ? updatedAnecdote 
           : anecdote
         )
       })
+      updatedAnecdotes.sort((a, b) => b.votes - a.votes)
+      return updatedAnecdotes
     }
     case "ADD_ANECDOTE": {
       const updatedAnecdotes = state.concat(action.payload)
