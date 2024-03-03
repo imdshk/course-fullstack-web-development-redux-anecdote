@@ -14,7 +14,10 @@ const App = () => {
   useEffect(() => {
     anecdoteService
       .getAll()
-      .then(anecdotes => dispatch(setAnecdotes(anecdotes)))
+      .then(anecdotes => {
+        anecdotes.sort((a, b) => b.votes - a.votes)
+        dispatch(setAnecdotes(anecdotes))
+      })
   }, [])
 
   return (
